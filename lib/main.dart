@@ -10,12 +10,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      home: Scaffold(
-        appBar: AppBar(title: Text(_title)),
-        body: MyStatelessWidget(),
-      ),
+      home: MyHomePage(),
     );
   }
+}
+
+class MyHomePage extends StatefulWidget {
+ @override
+ _MyHomePageState createState() {
+   return _MyHomePageState();
+ }
 }
 
 class _ArticleDescription extends StatelessWidget {
@@ -137,9 +141,16 @@ class CustomListItemTwo extends StatelessWidget {
 }
 
 /// This is the stateless widget that the main application instantiates.
-class MyStatelessWidget extends StatelessWidget {
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+   return Scaffold(
+     appBar: AppBar(title: Text('Our Note')),
+     body: _buildBody(context),
+   );
+  }
+
+  Widget _buildBody(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(10.0),
       children: <Widget>[
