@@ -20,12 +20,11 @@ class MyApp extends StatelessWidget {
 
 class _ArticleDescription extends StatelessWidget {
   _ArticleDescription({
-    Key key,
     this.title,
     this.subtitle,
     this.author,
     this.publishDate,
-  }) : super(key: key);
+  });
 
   final String title;
   final String subtitle;
@@ -93,13 +92,12 @@ class _ArticleDescription extends StatelessWidget {
 
 class CustomListItemTwo extends StatelessWidget {
   CustomListItemTwo({
-    Key key,
     this.thumbnail,
     this.title,
     this.subtitle,
     this.author,
     this.publishDate,
-  }) : super(key: key);
+  });
 
   final Widget thumbnail;
   final String title;
@@ -140,8 +138,6 @@ class CustomListItemTwo extends StatelessWidget {
 
 /// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return ListView(
