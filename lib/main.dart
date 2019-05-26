@@ -1,18 +1,10 @@
-// Flutter code sample for material.ListTile.5
-
-// Here is an example of an article list item with multi-line titles and
-// subtitles. It utilizes [Row]s and [Column]s, as well as [Expanded] and
-// [AspectRatio] widgets to organize its layout.
-//
-// ![Custom list item b](https://flutter.github.io/assets-for-api-docs/assets/widgets/custom_list_item_b.png)
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
 /// This Widget is the main application widget.
 class MyApp extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
+  static const String _title = 'Our Note';
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +25,12 @@ class _ArticleDescription extends StatelessWidget {
     this.subtitle,
     this.author,
     this.publishDate,
-    this.readDuration,
   }) : super(key: key);
 
   final String title;
   final String subtitle;
   final String author;
   final String publishDate;
-  final String readDuration;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +77,7 @@ class _ArticleDescription extends StatelessWidget {
                 ),
               ),
               Text(
-                '$publishDate · $readDuration ★',
+                '$publishDate ★',
                 style: const TextStyle(
                   fontSize: 12.0,
                   color: Colors.black54,
@@ -109,7 +99,6 @@ class CustomListItemTwo extends StatelessWidget {
     this.subtitle,
     this.author,
     this.publishDate,
-    this.readDuration,
   }) : super(key: key);
 
   final Widget thumbnail;
@@ -117,7 +106,6 @@ class CustomListItemTwo extends StatelessWidget {
   final String subtitle;
   final String author;
   final String publishDate;
-  final String readDuration;
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +128,6 @@ class CustomListItemTwo extends StatelessWidget {
                   subtitle: subtitle,
                   author: author,
                   publishDate: publishDate,
-                  readDuration: readDuration,
                 ),
               ),
             )
@@ -164,22 +151,20 @@ class MyStatelessWidget extends StatelessWidget {
           thumbnail: Container(
             decoration: const BoxDecoration(color: Colors.pink),
           ),
-          title: 'Flutter 1.0 Launch',
-          subtitle: 'Flutter continues to improve and expand its horizons.'
-              'This text should max out at two lines and clip',
-          author: 'Dash',
-          publishDate: 'Dec 28',
-          readDuration: '5 mins',
+          title: '今日は暑いですね〜',
+          subtitle: 'いやー、暑いっす。'
+              'ほんと、暑いっす。',
+          author: 'Ayaka',
+          publishDate: 'May 26',
         ),
         CustomListItemTwo(
           thumbnail: Container(
             decoration: const BoxDecoration(color: Colors.blue),
           ),
-          title: 'Flutter 1.2 Release - Continual updates to the framework',
-          subtitle: 'Flutter once again improves and makes updates.',
-          author: 'Flutter',
-          publishDate: 'Feb 26',
-          readDuration: '12 mins',
+          title: 'アプリ作り始めました',
+          subtitle: '難しいけど頑張ります！',
+          author: 'Akihiko',
+          publishDate: 'May 26',
         ),
       ],
     );
