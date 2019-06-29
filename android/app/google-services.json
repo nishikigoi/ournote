@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "900438508988",
+    "firebase_url": "https://our-note-99fbe.firebaseio.com",
+    "project_id": "our-note-99fbe",
+    "storage_bucket": "our-note-99fbe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900438508988:android:4789524952323b23",
+        "android_client_info": {
+          "package_name": "com.example.ournote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900438508988-ug2oil4s18uu9il0499kqls5hu026a3v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN7Q2Cu_2OFAzRgNy_9_PxyxCWhBOP-R0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900438508988-ug2oil4s18uu9il0499kqls5hu026a3v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
