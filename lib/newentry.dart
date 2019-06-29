@@ -28,7 +28,13 @@ class _NewEntryState extends State<NewEntry> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 24.0),
           TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Input title',
+              labelText: 'Title'
+            ),
             validator: (value) {
               if (value.isEmpty) {
                 return 'Enter some text';
@@ -36,6 +42,22 @@ class _NewEntryState extends State<NewEntry> {
               return null;
             },
           ),
+          SizedBox(height: 24.0),
+          TextFormField(
+            decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Tell us about your story',
+                labelText: 'Note'
+            ),
+            maxLines: 3,
+            validator: (value) {
+              if (value.isEmpty) {
+                return 'Enter some text';
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: 24.0),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: RaisedButton(
