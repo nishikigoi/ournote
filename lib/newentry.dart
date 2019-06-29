@@ -20,6 +20,8 @@ class _NewEntryState extends State<NewEntry> {
 
   @override
   Widget build(BuildContext context) {
+    var _title = "";
+    var _note = "";
     // Build a Form widget using the _formKey created above.
     return Scaffold(
         appBar: AppBar(title: Text('New Entry')),
@@ -43,6 +45,7 @@ class _NewEntryState extends State<NewEntry> {
               }
               return null;
             },
+            onSaved: (String value) => _title = value,
           ),
           SizedBox(height: 24.0),
           TextFormField(
@@ -58,6 +61,7 @@ class _NewEntryState extends State<NewEntry> {
               }
               return null;
             },
+            onSaved: (String value) => _note = value,
           ),
           SizedBox(height: 24.0),
           Padding(
@@ -67,9 +71,14 @@ class _NewEntryState extends State<NewEntry> {
                 // Validate returns true if the form is valid, or false
                 // otherwise.
                 if (_formKey.currentState.validate()) {
+                  _formKey.currentState.save();
+                  databaseReference.child("1").set({
+                    'title': _title,
+                    'note': _note,
+                  });
                   // If the form is valid, display a Snackbar.
                   Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Processing Data')));
+                      .showSnackBar(SnackBar(content: Text('Posted note.')));
                 }
               },
               child: Text('Submit'),
@@ -78,17 +87,6 @@ class _NewEntryState extends State<NewEntry> {
         ],
       )),
     ),
-      floatingActionButton: FloatingActionButton(
-        // onPressed: _addItem,
-        onPressed: () {
-          databaseReference.child("1").set({
-            'title': 'Mastering EJB',
-            'description': 'Programming Guide for J2EE'
-          });
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.blue,
-      ),
     );
   }
 }

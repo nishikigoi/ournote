@@ -26,13 +26,13 @@ class MyHomePage extends StatefulWidget {
 class _ArticleDescription extends StatelessWidget {
   _ArticleDescription({
     this.title,
-    this.subtitle,
+    this.note,
     this.author,
     this.publishDate,
   });
 
   final String title;
-  final String subtitle;
+  final String note;
   final String author;
   final String publishDate;
 
@@ -56,7 +56,7 @@ class _ArticleDescription extends StatelessWidget {
               ),
               const Padding(padding: EdgeInsets.only(bottom: 2.0)),
               Text(
-                '$subtitle',
+                '$note',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -99,14 +99,14 @@ class CustomListItemTwo extends StatelessWidget {
   CustomListItemTwo({
     this.thumbnail,
     this.title,
-    this.subtitle,
+    this.note,
     this.author,
     this.publishDate,
   });
 
   final Widget thumbnail;
   final String title;
-  final String subtitle;
+  final String note;
   final String author;
   final String publishDate;
 
@@ -128,7 +128,7 @@ class CustomListItemTwo extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
                 child: _ArticleDescription(
                   title: title,
-                  subtitle: subtitle,
+                  note: note,
                   author: author,
                   publishDate: publishDate,
                 ),
@@ -146,13 +146,13 @@ class _MyHomePageState extends State<MyHomePage> {
   int value = 2;
   var mapping1 = {
     'title': '今日は暑いですね〜',
-    'subtitle': 'いやー、暑いっす。ほんと、暑いっす。',
+    'note': 'いやー、暑いっす。ほんと、暑いっす。',
     'author': 'Ayaka',
     'publishDate': 'Jun 29',
   };
   var mapping2 = {
     'title': 'はじめての',
-    'subtitle': 'アプリ開発',
+    'note': 'アプリ開発',
     'author': 'Akihiko',
     'publishDate': 'Jun 29',
   };
@@ -192,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
         decoration: const BoxDecoration(color: Colors.pink),
       ),
       title: mapping['title'],
-      subtitle: mapping['subtitle'],
+      note: mapping['note'],
       author: mapping['author'],
       publishDate: mapping['publishDate'],
     );
