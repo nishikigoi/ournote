@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class NewEntry extends StatefulWidget {
  @override
@@ -9,6 +10,7 @@ class NewEntry extends StatefulWidget {
 
 /// This is the stateless widget that the main application instantiates.
 class _NewEntryState extends State<NewEntry> {
+  final databaseReference = FirebaseDatabase.instance.reference();
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -75,6 +77,18 @@ class _NewEntryState extends State<NewEntry> {
           ),
         ],
       )),
-    ));
+    ),
+      floatingActionButton: FloatingActionButton(
+        // onPressed: _addItem,
+        onPressed: () {
+          databaseReference.child("1").set({
+            'title': 'Mastering EJB',
+            'description': 'Programming Guide for J2EE'
+          });
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
+      ),
+    );
   }
 }
