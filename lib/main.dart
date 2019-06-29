@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'newentry.dart';
 
 void main() => runApp(MyApp());
 
@@ -170,7 +171,13 @@ class _MyHomePageState extends State<MyHomePage> {
          itemCount: value,
          itemBuilder: (context, index) => _buildRow(index)),
      floatingActionButton: FloatingActionButton(
-         onPressed: _addItem,
+         // onPressed: _addItem,
+         onPressed: () {
+           Navigator.push(
+             context,
+             MaterialPageRoute(builder: (context) => NewEntry()),
+           );
+         },
          child: Icon(Icons.add),
          backgroundColor: Colors.blue,
      ),
