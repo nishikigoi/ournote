@@ -142,58 +142,39 @@ class CustomListItemTwo extends StatelessWidget {
 
 /// This is the stateless widget that the main application instantiates.
 class _MyHomePageState extends State<MyHomePage> {
+  int value = 2;
+
+  _addItem() {
+    setState(() {
+      value = value + 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
    return Scaffold(
      appBar: AppBar(title: Text('Our Note')),
-     body: _buildBody(context),
+     body: ListView.builder(
+         itemCount: value,
+         itemBuilder: (context, index) => _buildRow(index)),
      floatingActionButton: FloatingActionButton(
-         onPressed: () {
-           // Add your onPressed code here!
-         },
+         onPressed: _addItem,
          child: Icon(Icons.add),
          backgroundColor: Colors.blue,
      ),
    );
   }
 
-  Widget _buildBody(BuildContext context) {
-    List<Widget> _articles = <Widget>[
-        CustomListItemTwo(
-          thumbnail: Container(
-            decoration: const BoxDecoration(color: Colors.pink),
-          ),
-          title: '今日は暑いですね〜',
-          subtitle: 'いやー、暑いっす。'
-              'ほんと、暑いっす。',
-          author: 'Ayaka',
-          publishDate: 'May 26',
-        ),
-        CustomListItemTwo(
-          thumbnail: Container(
-            decoration: const BoxDecoration(color: Colors.blue),
-          ),
-          title: 'アプリ作り始めました',
-          subtitle: '難しいけど頑張ります！',
-          author: 'Akihiko',
-          publishDate: 'May 26',
-        ),
-    ];
-
-    _articles.add(CustomListItemTwo(
-          thumbnail: Container(
-            decoration: const BoxDecoration(color: Colors.pink),
-          ),
-          title: '今日は暑いですね〜',
-          subtitle: 'いやー、暑いっす。'
-              'ほんと、暑いっす。暑いっすね〜',
-          author: 'Ayaka',
-          publishDate: 'May 26',
-        ));
-
-    return ListView(
-      padding: const EdgeInsets.all(10.0),
-      children: _articles,
+  Widget _buildRow(int index) {
+    return CustomListItemTwo(
+      thumbnail: Container(
+        decoration: const BoxDecoration(color: Colors.pink),
+      ),
+      title: '今日は暑いですね〜',
+      subtitle: 'いやー、暑いっす。'
+          'ほんと、暑いっす。',
+      author: 'Ayaka',
+      publishDate: 'May 26',
     );
   }
 }
