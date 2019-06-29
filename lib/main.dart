@@ -147,13 +147,18 @@ class _MyHomePageState extends State<MyHomePage> {
    return Scaffold(
      appBar: AppBar(title: Text('Our Note')),
      body: _buildBody(context),
+     floatingActionButton: FloatingActionButton(
+         onPressed: () {
+           // Add your onPressed code here!
+         },
+         child: Icon(Icons.add),
+         backgroundColor: Colors.blue,
+     ),
    );
   }
 
   Widget _buildBody(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(10.0),
-      children: <Widget>[
+    List<Widget> _articles = <Widget>[
         CustomListItemTwo(
           thumbnail: Container(
             decoration: const BoxDecoration(color: Colors.pink),
@@ -173,7 +178,22 @@ class _MyHomePageState extends State<MyHomePage> {
           author: 'Akihiko',
           publishDate: 'May 26',
         ),
-      ],
+    ];
+
+    _articles.add(CustomListItemTwo(
+          thumbnail: Container(
+            decoration: const BoxDecoration(color: Colors.pink),
+          ),
+          title: '今日は暑いですね〜',
+          subtitle: 'いやー、暑いっす。'
+              'ほんと、暑いっす。暑いっすね〜',
+          author: 'Ayaka',
+          publishDate: 'May 26',
+        ));
+
+    return ListView(
+      padding: const EdgeInsets.all(10.0),
+      children: _articles,
     );
   }
 }
