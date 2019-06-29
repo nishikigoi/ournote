@@ -143,6 +143,18 @@ class CustomListItemTwo extends StatelessWidget {
 /// This is the stateless widget that the main application instantiates.
 class _MyHomePageState extends State<MyHomePage> {
   int value = 2;
+  var mapping1 = {
+    'title': '今日は暑いですね〜',
+    'subtitle': 'いやー、暑いっす。ほんと、暑いっす。',
+    'author': 'Ayaka',
+    'publishDate': 'Jun 29',
+  };
+  var mapping2 = {
+    'title': 'はじめての',
+    'subtitle': 'アプリ開発',
+    'author': 'Akihiko',
+    'publishDate': 'Jun 29',
+  };
 
   _addItem() {
     setState(() {
@@ -166,15 +178,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildRow(int index) {
+    var maparr = [mapping1, mapping2];
+    var mapping = maparr[index % 2];
     return CustomListItemTwo(
       thumbnail: Container(
         decoration: const BoxDecoration(color: Colors.pink),
       ),
-      title: '今日は暑いですね〜',
-      subtitle: 'いやー、暑いっす。'
-          'ほんと、暑いっす。',
-      author: 'Ayaka',
-      publishDate: 'May 26',
+      title: mapping['title'],
+      subtitle: mapping['subtitle'],
+      author: mapping['author'],
+      publishDate: mapping['publishDate'],
     );
   }
 }
