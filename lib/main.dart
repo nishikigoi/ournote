@@ -169,6 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _onEntryAdded(Event e) {
     setState(() {
       entries.add(new NoteEntry.fromSnapShot(e.snapshot));
+      entries.sort((a, b) => b.submitDate.compareTo(a.submitDate));
     });
   }
 
@@ -194,15 +195,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildRow(int index) {
-    int viewIndex = entries.length - index - 1;
+    const colormap = {
+      'Akihiko': Colors.blue,
+      'Ayaka': Colors.pink,
+    };
     return CustomListItemTwo(
       thumbnail: Container(
-        decoration: const BoxDecoration(color: Colors.pink),
+        decoration: BoxDecoration(color: colormap[entries[index].author]),
       ),
-      title: entries[viewIndex].title,
-      note: entries[viewIndex].note,
-      author: entries[viewIndex].author,
-      submitDate: entries[viewIndex].submitDate.toString(),
+      title: entries[index].title,
+      note: entries[index].note,
+      author: entries[index].author,
+      submitDate: entries[index].submitDate.toString(),
     );
   }
 }
