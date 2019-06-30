@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:uuid/uuid.dart';
 
 class NewEntry extends StatefulWidget {
  @override
@@ -72,9 +73,12 @@ class _NewEntryState extends State<NewEntry> {
                 // otherwise.
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
-                  databaseReference.child("1").set({
+                  var uuid = new Uuid();
+                  databaseReference.child(uuid.v4()).set({
                     'title': _title,
                     'note': _note,
+                    'author': 'Akihiko',
+                    'submitDate':
                   });
                   // If the form is valid, display a Snackbar.
                   Scaffold.of(context)
