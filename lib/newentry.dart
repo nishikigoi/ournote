@@ -81,6 +81,7 @@ class _NewEntryState extends State<NewEntry> {
                     'author': 'Akihiko',
                     'submitDate': new DateTime.now().millisecondsSinceEpoch,
                   });
+                  Navigator.pop(context);
                   // If the form is valid, display a Snackbar.
                   Scaffold.of(context)
                       .showSnackBar(SnackBar(content: Text('Posted note.')));
