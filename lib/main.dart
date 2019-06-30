@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'newentry.dart';
 
 void main() => runApp(MyApp());
@@ -28,13 +29,13 @@ class _ArticleDescription extends StatelessWidget {
     this.title,
     this.note,
     this.author,
-    this.publishDate,
+    this.submitDate,
   });
 
   final String title;
   final String note;
   final String author;
-  final String publishDate;
+  final String submitDate;
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,7 @@ class _ArticleDescription extends StatelessWidget {
                 ),
               ),
               Text(
-                '$publishDate ★',
+                '$submitDate ★',
                 style: const TextStyle(
                   fontSize: 12.0,
                   color: Colors.black54,
@@ -101,14 +102,14 @@ class CustomListItemTwo extends StatelessWidget {
     this.title,
     this.note,
     this.author,
-    this.publishDate,
+    this.submitDate,
   });
 
   final Widget thumbnail;
   final String title;
   final String note;
   final String author;
-  final String publishDate;
+  final String submitDate;
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +131,7 @@ class CustomListItemTwo extends StatelessWidget {
                   title: title,
                   note: note,
                   author: author,
-                  publishDate: publishDate,
+                  submitDate: submitDate,
                 ),
               ),
             )
@@ -141,25 +142,33 @@ class CustomListItemTwo extends StatelessWidget {
   }
 }
 
+class NoteEntry {
+  String title;
+  String note;
+  String author;
+  DateTime submitDate;
+
+  NoteEntry.fromSnapShot(DataSnapshot snapshot):
+        title = snapshot.value['title'],
+        note = snapshot.value['note'],
+        author = snapshot.value['author'],
+        submitDate = new DateTime.fromMillisecondsSinceEpoch(snapshot.value['submitDate']);
+}
+
 /// This is the stateless widget that the main application instantiates.
 class _MyHomePageState extends State<MyHomePage> {
-  int value = 2;
-  var mapping1 = {
-    'title': '今日は暑いですね〜',
-    'note': 'いやー、暑いっす。ほんと、暑いっす。',
-    'author': 'Ayaka',
-    'publishDate': 'Jun 29',
-  };
-  var mapping2 = {
-    'title': 'はじめての',
-    'note': 'アプリ開発',
-    'author': 'Akihiko',
-    'publishDate': 'Jun 29',
-  };
+  List<NoteEntry> entries = new List();  // チャッtのメッセージリスト
+  final databaseReference = FirebaseDatabase.instance.reference();
 
-  _addItem() {
+  @override
+  initState() {
+    super.initState();
+    databaseReference.onChildAdded.listen(_onEntryAdded);
+  }
+
+  _onEntryAdded(Event e) {
     setState(() {
-      value = value + 1;
+      entries.add(new NoteEntry.fromSnapShot(e.snapshot));
     });
   }
 
@@ -168,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
    return Scaffold(
      appBar: AppBar(title: Text('Our Note')),
      body: ListView.builder(
-         itemCount: value,
+         itemCount: entries.length,
          itemBuilder: (context, index) => _buildRow(index)),
      floatingActionButton: FloatingActionButton(
          // onPressed: _addItem,
@@ -185,16 +194,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildRow(int index) {
-    var maparr = [mapping1, mapping2];
-    var mapping = maparr[index % 2];
+    int viewIndex = entries.length - index - 1;
     return CustomListItemTwo(
       thumbnail: Container(
         decoration: const BoxDecoration(color: Colors.pink),
       ),
-      title: mapping['title'],
-      note: mapping['note'],
-      author: mapping['author'],
-      publishDate: mapping['publishDate'],
+      title: entries[viewIndex].title,
+      note: entries[viewIndex].note,
+      author: entries[viewIndex].author,
+      submitDate: entries[viewIndex].submitDate.toString(),
     );
   }
 }

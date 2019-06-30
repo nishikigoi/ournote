@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 class NewEntry extends StatefulWidget {
@@ -78,7 +79,7 @@ class _NewEntryState extends State<NewEntry> {
                     'title': _title,
                     'note': _note,
                     'author': 'Akihiko',
-                    'submitDate':
+                    'submitDate': new DateTime.now().millisecondsSinceEpoch,
                   });
                   // If the form is valid, display a Snackbar.
                   Scaffold.of(context)
