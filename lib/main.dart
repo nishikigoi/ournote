@@ -54,16 +54,20 @@ class _ArticleDescription extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
+                  fontFamily: "Hiragino Sans",
+                  locale: Locale("ja", "JP"),
                 ),
               ),
               const Padding(padding: EdgeInsets.only(bottom: 2.0)),
               Text(
                 '$note',
-                maxLines: 4,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   fontSize: 12.0,
                   color: Colors.black54,
+                  fontFamily: "Hiragino Sans",
+                  locale: Locale("ja", "JP"),
                 ),
               ),
             ],

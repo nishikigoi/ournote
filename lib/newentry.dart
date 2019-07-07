@@ -42,6 +42,10 @@ class _NewEntryState extends State<NewEntry> {
               hintText: 'Input title',
               labelText: 'Title'
             ),
+            style: TextStyle(
+              fontFamily: "Hiragino Sans",
+              locale: Locale("ja", "JP"),
+            ),
             validator: (value) {
               if (value.isEmpty) {
                 return 'Enter some text';
@@ -56,6 +60,10 @@ class _NewEntryState extends State<NewEntry> {
                 border: OutlineInputBorder(),
                 hintText: 'Tell us about your story',
                 labelText: 'Note'
+            ),
+            style: TextStyle(
+              fontFamily: "Hiragino Sans",
+              locale: Locale("ja", "JP"),
             ),
             maxLines: 3,
             validator: (value) {

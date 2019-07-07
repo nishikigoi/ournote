@@ -31,6 +31,8 @@ class DetailEntry extends StatelessWidget {
           style: TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
+            fontFamily: "Hiragino Sans",
+            locale: Locale("ja", "JP"),
           ),
         ),
         const Padding(padding: EdgeInsets.only(bottom: 18.0)),
@@ -42,6 +44,8 @@ class DetailEntry extends StatelessWidget {
           note,
           style: TextStyle(
             fontSize: 16.0,
+            fontFamily: "Hiragino Sans",
+            locale: Locale("ja", "JP"),
           ),
         ),
       ]
