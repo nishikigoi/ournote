@@ -30,10 +30,12 @@ class _NewEntryState extends State<NewEntry> {
           builder: (context) =>
         Form(
       key: _formKey,
-      child: Column(
+      child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+    child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: 24.0),
+          SizedBox(height: 16.0),
           TextFormField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -90,7 +92,7 @@ class _NewEntryState extends State<NewEntry> {
             ),
           ),
         ],
-      )),
+      ))),
     ),
     );
   }
