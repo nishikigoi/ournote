@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'detailentry.dart';
 import 'newentry.dart';
 
 void main() => runApp(MyApp());
@@ -58,7 +59,7 @@ class _ArticleDescription extends StatelessWidget {
               const Padding(padding: EdgeInsets.only(bottom: 2.0)),
               Text(
                 '$note',
-                maxLines: 2,
+                maxLines: 4,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   fontSize: 12.0,
@@ -199,14 +200,31 @@ class _MyHomePageState extends State<MyHomePage> {
       'Akihiko': Colors.blue,
       'Ayaka': Colors.pink,
     };
-    return CustomListItemTwo(
+    var title = entries[index].title;
+    var note = entries[index].note;
+    var author = entries[index].author;
+    var submitDate = entries[index].submitDate.toString();
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DetailEntry(
+              title: title,
+              note: note,
+              author: author,
+              submitDate: submitDate,
+            )),
+          );
+        },
+        child: CustomListItemTwo(
       thumbnail: Container(
         decoration: BoxDecoration(color: colormap[entries[index].author]),
       ),
-      title: entries[index].title,
-      note: entries[index].note,
-      author: entries[index].author,
-      submitDate: entries[index].submitDate.toString(),
+      title: title,
+      note: note,
+      author: author,
+      submitDate: submitDate,
+    ),
     );
   }
 }

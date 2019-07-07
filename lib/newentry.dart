@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 class NewEntry extends StatefulWidget {
