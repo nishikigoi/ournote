@@ -154,12 +154,14 @@ class NoteEntry {
   String note;
   String author;
   DateTime submitDate;
+  String imageUrl;
 
   NoteEntry.fromSnapShot(DataSnapshot snapshot):
         title = snapshot.value['title'],
         note = snapshot.value['note'],
         author = snapshot.value['author'],
-        submitDate = new DateTime.fromMillisecondsSinceEpoch(snapshot.value['submitDate']);
+        submitDate = new DateTime.fromMillisecondsSinceEpoch(snapshot.value['submitDate']),
+        imageUrl = snapshot.value['imageUrl'];
 }
 
 /// This is the stateless widget that the main application instantiates.
@@ -231,6 +233,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var note = entries[index].note;
     var author = entries[index].author;
     var submitDate = entries[index].submitDate.toString();
+    var imageUrl = entries[index].imageUrl;
     return GestureDetector(
         onTap: () {
           Navigator.push(
@@ -240,11 +243,13 @@ class _MyHomePageState extends State<MyHomePage> {
               note: note,
               author: author,
               submitDate: submitDate,
+              imageUrl: imageUrl,
             )),
           );
         },
         child: CustomListItemTwo(
-      thumbnail: Container(
+      thumbnail: imageUrl != null ?
+      Image.network(imageUrl, fit:BoxFit.fill) : Container(
         decoration: BoxDecoration(color: colormap[entries[index].author]),
       ),
       title: title,
