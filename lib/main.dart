@@ -169,14 +169,15 @@ class _MyHomePageState extends State<MyHomePage> {
   final databaseReference = FirebaseDatabase.instance.reference();
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseUser _user;
+  String _username;
 
   @override
   initState() {
     super.initState();
     databaseReference.onChildAdded.listen(_onEntryAdded);
     _handleSignIn()
-        .then((FirebaseUser user) => print(user))
+        .then((FirebaseUser user) => _username =
+            user.displayName.startsWith("Akihiko") ? "Akihiko" : "Ayaka")
         .catchError((e) => print(e));
   }
 
@@ -213,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
          onPressed: () {
            Navigator.push(
              context,
-             MaterialPageRoute(builder: (context) => NewEntry()),
+             MaterialPageRoute(builder: (context) => NewEntry(username: _username)),
            );
          },
          child: Icon(Icons.add),

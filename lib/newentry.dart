@@ -1,12 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:uuid/uuid.dart';
 
 class NewEntry extends StatefulWidget {
- @override
- _NewEntryState createState() {
-   return _NewEntryState();
- }
+  final String username;
+
+  const NewEntry({ Key key, this.username }): super(key: key);
+
+  @override
+  _NewEntryState createState() {
+    return _NewEntryState();
+  }
 }
 
 /// This is the stateless widget that the main application instantiates.
@@ -18,6 +23,12 @@ class _NewEntryState extends State<NewEntry> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  initState() {
+    super.initState();
+    print(widget.username);
+  }
 
   @override
   Widget build(BuildContext context) {
