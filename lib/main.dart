@@ -5,7 +5,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'detailentry.dart';
 import 'newentry.dart';
 
-
 void main() => runApp(MyApp());
 
 /// This Widget is the main application widget.

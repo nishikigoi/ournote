@@ -25,15 +25,10 @@ class _NewEntryState extends State<NewEntry> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  initState() {
-    super.initState();
-    print(widget.username);
-  }
-
-  @override
   Widget build(BuildContext context) {
     var _title = "";
     var _note = "";
+    final _author = widget.username;
     // Build a Form widget using the _formKey created above.
     return Scaffold(
         appBar: AppBar(title: Text('New Entry')),
@@ -98,7 +93,7 @@ class _NewEntryState extends State<NewEntry> {
                   databaseReference.child(uuid.v4()).set({
                     'title': _title,
                     'note': _note,
-                    'author': 'Akihiko',
+                    'author': _author,
                     'submitDate': new DateTime.now().millisecondsSinceEpoch,
                   });
                   Navigator.pop(context);
