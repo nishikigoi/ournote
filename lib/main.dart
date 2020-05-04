@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'detailentry.dart';
 import 'newentry.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -164,11 +167,17 @@ class NoteEntry {
 class _MyHomePageState extends State<MyHomePage> {
   List<NoteEntry> entries = new List();  // チャッtのメッセージリスト
   final databaseReference = FirebaseDatabase.instance.reference();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseUser _user;
 
   @override
   initState() {
     super.initState();
     databaseReference.onChildAdded.listen(_onEntryAdded);
+    _handleSignIn()
+        .then((FirebaseUser user) => print(user))
+        .catchError((e) => print(e));
   }
 
   _onEntryAdded(Event e) {
@@ -176,6 +185,20 @@ class _MyHomePageState extends State<MyHomePage> {
       entries.add(new NoteEntry.fromSnapShot(e.snapshot));
       entries.sort((a, b) => b.submitDate.compareTo(a.submitDate));
     });
+  }
+
+  Future<FirebaseUser> _handleSignIn() async {
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
+    print("signed in " + user.displayName);
+    return user;
   }
 
   @override
