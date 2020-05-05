@@ -29,6 +29,7 @@ class _NewEntryState extends State<NewEntry> {
   String _imageUrl = null;
   var _title = "";
   var _note = "";
+  bool _waiting = false;
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -43,7 +44,13 @@ class _NewEntryState extends State<NewEntry> {
     final StorageReference storageReference =
       FirebaseStorage().ref().child('images/' + filename);
     final StorageUploadTask uploadTask = storageReference.putFile(_image);
+    setState(() {
+      _waiting = true;
+    });
     await uploadTask.onComplete;
+    setState(() {
+      _waiting = false;
+    });
     return await storageReference.getDownloadURL();
   }
 
@@ -70,6 +77,9 @@ class _NewEntryState extends State<NewEntry> {
           .showSnackBar(SnackBar(content: Text('Posted note.')));
     }
   }
+
+  Widget _buildProgressIndicator() =>
+      _waiting ? CircularProgressIndicator() : Container();
 
   @override
   Widget build(BuildContext context) {
@@ -147,11 +157,17 @@ class _NewEntryState extends State<NewEntry> {
             SizedBox(height: 24.0),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: RaisedButton(
-                onPressed: () {
-                  _submitToDatabase();
-                },
-                child: Text('Submit'),
+              child: Row(
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: () {
+                      _submitToDatabase();
+                    },
+                    child: Text('Submit'),
+                  ),
+                  SizedBox(width: 16.0),
+                  _buildProgressIndicator(),
+                ],
               ),
             ),
           ],
