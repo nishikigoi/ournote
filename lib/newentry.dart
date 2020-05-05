@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
@@ -25,6 +26,9 @@ class _NewEntryState extends State<NewEntry> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
   File _image;
+  String _imageUrl = null;
+  var _title = "";
+  var _note = "";
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -34,11 +38,41 @@ class _NewEntryState extends State<NewEntry> {
     });
   }
 
+  Future<String> uploadImage() async {
+    final String filename = Uuid().v1();
+    final StorageReference storageReference =
+      FirebaseStorage().ref().child('images/' + filename);
+    final StorageUploadTask uploadTask = storageReference.putFile(_image);
+    await uploadTask.onComplete;
+    return await storageReference.getDownloadURL();
+  }
+
+  Future _submitToDatabase() async {
+    final _author = widget.username;
+    // Validate returns true if the form is valid, or false
+    // otherwise.
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      var uuid = new Uuid();
+      if (_image != null) {
+        _imageUrl = await uploadImage();
+      }
+      databaseReference.child(uuid.v4()).set({
+        'title': _title,
+        'note': _note,
+        'author': _author,
+        'submitDate': new DateTime.now().millisecondsSinceEpoch,
+        'imageUrl': _imageUrl,
+      });
+      Navigator.pop(context);
+      // If the form is valid, display a Snackbar.
+      Scaffold.of(context)
+          .showSnackBar(SnackBar(content: Text('Posted note.')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    var _title = "";
-    var _note = "";
-    final _author = widget.username;
     // Build a Form widget using the _formKey created above.
     return Scaffold(
         appBar: AppBar(title: Text('New Entry')),
@@ -115,22 +149,7 @@ class _NewEntryState extends State<NewEntry> {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: RaisedButton(
                 onPressed: () {
-                  // Validate returns true if the form is valid, or false
-                  // otherwise.
-                  if (_formKey.currentState.validate()) {
-                    _formKey.currentState.save();
-                    var uuid = new Uuid();
-                    databaseReference.child(uuid.v4()).set({
-                      'title': _title,
-                      'note': _note,
-                      'author': _author,
-                      'submitDate': new DateTime.now().millisecondsSinceEpoch,
-                    });
-                    Navigator.pop(context);
-                    // If the form is valid, display a Snackbar.
-                    Scaffold.of(context)
-                        .showSnackBar(SnackBar(content: Text('Posted note.')));
-                  }
+                  _submitToDatabase();
                 },
                 child: Text('Submit'),
               ),
