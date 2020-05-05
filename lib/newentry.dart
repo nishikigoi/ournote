@@ -40,7 +40,7 @@ class _NewEntryState extends State<NewEntry> {
   }
 
   Future<String> uploadImage() async {
-    final String filename = Uuid().v1();
+    final String filename = Uuid().v4();
     final StorageReference storageReference =
       FirebaseStorage().ref().child('images/' + filename);
     final StorageUploadTask uploadTask = storageReference.putFile(_image);
@@ -60,11 +60,10 @@ class _NewEntryState extends State<NewEntry> {
     // otherwise.
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      var uuid = new Uuid();
       if (_image != null) {
         _imageUrl = await uploadImage();
       }
-      databaseReference.child(uuid.v4()).set({
+      databaseReference.child(Uuid().v4()).set({
         'title': _title,
         'note': _note,
         'author': _author,
