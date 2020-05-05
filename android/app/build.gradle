@@ -62,3 +62,13 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        print(details.requested.group)
+        if (details.requested.group == 'androidx.core') {
+            details.useVersion '1.0.0'
+            details.because 'API needs higher versions'
+        }
+    }
+}
